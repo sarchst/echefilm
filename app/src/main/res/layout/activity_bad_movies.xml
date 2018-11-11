@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BadMovies">
+    tools:context=".BadMovies"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="100dp"
@@ -13,6 +14,7 @@
         android:id="@+id/room_picture"
         android:clickable="true"
         android:padding="5dp"
+        android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="100dp"
@@ -21,6 +23,7 @@
         android:id="@+id/troll_picture"
         android:clickable="true"
         android:padding="5dp"
+        android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="100dp"
@@ -29,6 +32,7 @@
         android:id="@+id/birdemic"
         android:clickable="true"
         android:padding="5dp"
+        android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="100dp"
@@ -37,6 +41,7 @@
         android:id="@+id/plan_picture"
         android:clickable="true"
         android:padding="5dp"
+        android:layout_gravity="center"
         />
     <ImageView
         android:layout_width="100dp"
@@ -45,6 +50,7 @@
         android:id="@+id/santa_picture"
         android:clickable="true"
         android:padding="5dp"
+        android:layout_gravity="center"
         />
 
 </LinearLayout>
