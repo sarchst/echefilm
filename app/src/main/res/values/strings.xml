@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">echefilm</string>
+    <string name="moonlight_synopsis">\'...it\’s about teaching a child to swim, about cooking a meal for an old friend, about the feeling of sand on skin and the sound of waves on a darkened beach, about first kisses and lingering regrets.\' - A. O. Scott (NYT)</string>
+    <string name="frances_synopsis">A story that follows a New York woman, who doesn\'t really have an apartment. She apprentices for a dance company although she\'s not really a dancer, and throws herself headlong into her dreams.</string>
+    <string name="sunset_synopsis">\'Erasing nearly a decade of longing and distraction, Jesse and Celine, a bit awkwardly, pick up where they left off...they have no interest in us, which is why we, eavesdropping and spying on their clumsy, passionate intimacy, are so interested in them.\'  - A. O. Scott (NYT)</string>
+    <string name="pulp_synopsis">Hitmen with a penchant for philosophical discussions.</string>
+
+    <string name="troll_synopsis">About goblins, not trolls.</string>
+    <string name="room_synopsis">"A movie made by an alien who has never seen a movie but who has had movies thoroughly explained to him" - Tom Bissell</string>
+    <string name="birdemic">Shocking...and terrifying.</string>
+
+</resources>
