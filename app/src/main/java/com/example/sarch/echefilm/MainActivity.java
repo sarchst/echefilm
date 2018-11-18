@@ -9,6 +9,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     Button badButton;
     Button goodButton;
+    Button randomButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
                 OpenGoodMovies();
             }
         });
+
+        randomButton = (Button) findViewById(R.id.random_button);
+        randomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenRandomGenerator();
+
+            }
+        });
     }
 
     // starts the other activity
@@ -41,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
     // starts the other activity
     public void OpenGoodMovies() {
         Intent intent= new Intent(this, GoodMovies.class);
+        startActivity(intent);
+    }
+
+    // starts the other activity
+    public void OpenRandomGenerator() {
+        Intent intent= new Intent(this, RandomGenerator.class);
         startActivity(intent);
     }
 }

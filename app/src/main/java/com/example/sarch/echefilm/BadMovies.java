@@ -110,7 +110,7 @@ public class BadMovies extends AppCompatActivity {
                 alertTitle.setText("Santa Claus Conquers the Martians");
 
                 alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
-                alertDescription.setText(R.string.pulp_synopsis);
+                alertDescription.setText(R.string.santa_synopsis);
 
                 alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
                 alertImage.setImageResource(R.drawable.santa);
@@ -121,7 +121,7 @@ public class BadMovies extends AppCompatActivity {
                 alertTitle.setText("Plan 9 from Outer Space");
 
                 alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
-                alertDescription.setText(R.string.pulp_synopsis);
+                alertDescription.setText(R.string.plan_synopsis);
 
                 alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
                 alertImage.setImageResource(R.drawable.plan);
