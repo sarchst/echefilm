@@ -5,118 +5,111 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.HashSet;
+
 public class GoodMovies extends AppCompatActivity {
-    private ImageView moonlight;
-    private ImageView frances;
-    private ImageView sunset;
-    private ImageView pulp;
+    private ImageView moonlightButton;
+    private ImageView francesButton;
+    private ImageView sunsetButton;
+    private ImageView pulpButton;
     Dialog myDialog;
     TextView alertTitle;
     TextView alertDescription;
     ImageView alertImage;
+    HashSet<Movie> goodMovies;
+    Movie moonlight;
+    Movie francesHa;
+    Movie beforeSunset;
+    Movie pulpFiction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_movies);
 
+        // Initialize the movies
+        moonlight = new Movie("Moonlight",
+                "'...it’s about teaching a child to swim, about cooking a meal for an " +
+                        "old friend, about the feeling of sand on skin and the sound of waves on a " +
+                        "darkened beach, about first kisses and lingering regrets.' - A. O. Scott (NYT)",
+                R.drawable.moonlight);
+
+        francesHa = new Movie("Frances Ha",
+                "A story that follows a New York woman, who doesn\\'t really have an apartment. " +
+                        "She apprentices for a dance company although she\\'s not really a dancer, and throws" +
+                        " herself headlong into her dreams.",
+                R.drawable.frances_ha);
+
+        beforeSunset = new Movie("Before Sunset",
+                "\\'Erasing nearly a decade of longing and distraction, Jesse and Celine, " +
+                        "a bit awkwardly, pick up where they left off...they have no interest in us, which is " +
+                        "why we, eavesdropping and spying on their clumsy, passionate intimacy, are so interested in them.\\'  " +
+                        "- A. O. Scott (NYT)",
+                R.drawable.before_sunset);
+
+        pulpFiction = new Movie("Pulp Fiction",
+                "Hitmen with a penchant for philosophical discussions.",
+                R.drawable.pulp_fiction);
+
+
+
         myDialog = new Dialog(this);
 
-        // ImageView buttons
-        moonlight = (ImageView) findViewById(R.id.moonlight_picture);
-        frances = (ImageView) findViewById(R.id.frances_picture);
-        sunset = (ImageView) findViewById(R.id.before_sunset);
-        pulp = (ImageView) findViewById(R.id.pulp_fiction);
+        // movie picture buttons
+        moonlightButton = (ImageView) findViewById(R.id.moonlight_imageview);
+        francesButton = (ImageView) findViewById(R.id.frances_imageview);
+        sunsetButton = (ImageView) findViewById(R.id.sunset_imageview);
+        pulpButton = (ImageView) findViewById(R.id.pulp_imageview);
 
-        moonlight.setOnClickListener(new View.OnClickListener() {
+        moonlightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowCustomDialog("moonlight");
+                ShowCustomDialog(moonlight);
             }
         });
 
-        frances.setOnClickListener(new View.OnClickListener() {
+        francesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowCustomDialog("frances");
+                ShowCustomDialog(francesHa);
             }
         });
 
-        sunset.setOnClickListener(new View.OnClickListener() {
+        sunsetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowCustomDialog("sunset");
+                ShowCustomDialog(beforeSunset);
             }
         });
 
-        pulp.setOnClickListener(new View.OnClickListener() {
+        pulpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowCustomDialog("pulp");
+                ShowCustomDialog(pulpFiction);
             }
         });
 
     }
 
-    public void ShowCustomDialog(String movie) {
+    public void ShowCustomDialog(Movie movie) {
+        Log.d("GoodMovie","In SHOW CUSTOM DIALOG");
+
         myDialog.setContentView(R.layout.custom_alert);
-        switch (movie) {
-            case "moonlight":
-                alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
-                alertTitle.setText("Moonlight");
+        alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
+        alertTitle.setText(movie.title);
 
-                alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
-                alertDescription.setText(R.string.moonlight_synopsis);
+        alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
+        alertDescription.setText(movie.description);
 
-                alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
-                alertImage.setImageResource(R.drawable.moonlight);
-                break;
-
-            case "frances":
-                alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
-                alertTitle.setText("Frances Ha");
-
-                alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
-                alertDescription.setText(R.string.frances_synopsis);
-
-                alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
-                alertImage.setImageResource(R.drawable.frances_ha);
-                break;
-
-            case "sunset":
-                alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
-                alertTitle.setText("Before Sunset");
-
-                alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
-                alertDescription.setText(R.string.sunset_synopsis);
-
-                alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
-                alertImage.setImageResource(R.drawable.before_sunset);
-                break;
-
-            case "pulp":
-                alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
-                alertTitle.setText("Pulp Fiction");
-
-                alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
-                alertDescription.setText(R.string.pulp_synopsis);
-
-                alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
-                alertImage.setImageResource(R.drawable.pulp_fiction);
-                break;
-
-            default: break;
-
-        }
-
-
-
-
-
+        alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
+        alertImage.setImageResource(movie.imageResource);
+        
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }

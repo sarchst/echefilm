@@ -10,7 +10,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/moonlight"
-        android:id="@+id/moonlight_picture"
+        android:id="@+id/moonlight_imageview"
         android:clickable="true"
         android:padding="5dp"
         />
@@ -19,7 +19,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/frances_ha"
-        android:id="@+id/frances_picture"
+        android:id="@+id/frances_imageview"
         android:clickable="true"
         android:padding="5dp"/>
 
@@ -27,7 +27,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/pulp_fiction"
-        android:id="@+id/pulp_fiction"
+        android:id="@+id/pulp_imageview"
         android:clickable="true"
         android:padding="5dp"/>
 
@@ -35,7 +35,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/before_sunset"
-        android:id="@+id/before_sunset"
+        android:id="@+id/sunset_imageview"
         android:clickable="true"
         android:padding="5dp"/>
 
