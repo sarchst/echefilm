@@ -22,11 +22,11 @@ public class GoodMovies extends AppCompatActivity {
     TextView alertTitle;
     TextView alertDescription;
     ImageView alertImage;
-    HashSet<Movie> goodMovies;
-    Movie moonlight;
-    Movie francesHa;
-    Movie beforeSunset;
-    Movie pulpFiction;
+    HashSet<Movie2> goodMovies;
+    Movie2 moonlight;
+    Movie2 francesHa;
+    Movie2 beforeSunset;
+    Movie2 pulpFiction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +34,26 @@ public class GoodMovies extends AppCompatActivity {
         setContentView(R.layout.activity_good_movies);
 
         // Initialize the movies
-        moonlight = new Movie("Moonlight",
+        moonlight = new Movie2("Moonlight",
                 "'...it’s about teaching a child to swim, about cooking a meal for an " +
                         "old friend, about the feeling of sand on skin and the sound of waves on a " +
                         "darkened beach, about first kisses and lingering regrets.' - A. O. Scott (NYT)",
                 R.drawable.moonlight);
 
-        francesHa = new Movie("Frances Ha",
+        francesHa = new Movie2("Frances Ha",
                 "A story that follows a New York woman, who doesn\\'t really have an apartment. " +
                         "She apprentices for a dance company although she\\'s not really a dancer, and throws" +
                         " herself headlong into her dreams.",
                 R.drawable.frances_ha);
 
-        beforeSunset = new Movie("Before Sunset",
+        beforeSunset = new Movie2("Before Sunset",
                 "\\'Erasing nearly a decade of longing and distraction, Jesse and Celine, " +
                         "a bit awkwardly, pick up where they left off...they have no interest in us, which is " +
                         "why we, eavesdropping and spying on their clumsy, passionate intimacy, are so interested in them.\\'  " +
                         "- A. O. Scott (NYT)",
                 R.drawable.before_sunset);
 
-        pulpFiction = new Movie("Pulp Fiction",
+        pulpFiction = new Movie2("Pulp Fiction",
                 "Hitmen with a penchant for philosophical discussions.",
                 R.drawable.pulp_fiction);
 
@@ -97,7 +97,7 @@ public class GoodMovies extends AppCompatActivity {
 
     }
 
-    public void ShowCustomDialog(Movie movie) {
+    public void ShowCustomDialog(Movie2 movie) {
         Log.d("GoodMovie","In SHOW CUSTOM DIALOG");
 
         myDialog.setContentView(R.layout.custom_alert);
@@ -109,7 +109,7 @@ public class GoodMovies extends AppCompatActivity {
 
         alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
         alertImage.setImageResource(movie.imageResource);
-        
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
