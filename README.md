@@ -1,2 +1,2 @@
 # echefilm
-Popular Movie Recommending App
+Movie Recommending Android App
