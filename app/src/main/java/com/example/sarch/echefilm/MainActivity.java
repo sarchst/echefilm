@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,14 +27,12 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
-    String topRatedMoviesURL;
     ArrayList<Movie> mPopularList;
     ArrayList<Movie> actionMovies;
     ArrayList<Movie> comedyMovies;
     ArrayList<Movie> animatedMovies;
     ArrayList<Movie> dramaMovies;
 
-    ArrayList<Movie> mTopTopRatedList;
     GridView mGridView;
     public final String myApiKey = "94a9226df34dd3b1351e1b8345b96af2";
     private static final String TAG = NetworkUtils.class.getSimpleName();
@@ -47,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public final String drama = "18";
 
 
-    @BindView(R.id.indeterminateBar)
-    ProgressBar mProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         test = findViewById(R.id.test_text);
 
         ButterKnife.bind(this);
-        mProgressBar.setVisibility(View.INVISIBLE); //Hide Progressbar by Default
         new FetchMovies().execute(); //New code
         Log.e(TAG, "Sarchen: End of OnCreate");
     }
@@ -78,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.pop_movies) {
             refreshList(mPopularList);
         }
-        if (id == R.id.top_movies) {
-            refreshList(mTopTopRatedList);
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -96,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -104,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key="+myApiKey;
-            topRatedMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key="+myApiKey;
 
             mPopularList = new ArrayList<>();
             actionMovies = new ArrayList<>();
@@ -112,14 +102,10 @@ public class MainActivity extends AppCompatActivity {
             animatedMovies = new ArrayList<>();
             dramaMovies = new ArrayList<>();
 
-            mTopTopRatedList = new ArrayList<>();
-
             try {
                 if(NetworkUtils.networkStatus(MainActivity.this)){
                     mPopularList = NetworkUtils.fetchData(popularMoviesURL); //Get popular movies
                     Log.e(TAG, "Sarchen: Popular" + mPopularList.size());
-                    mTopTopRatedList = NetworkUtils.fetchData(topRatedMoviesURL); //Get top rated movies
-                    //Log.e(TAG, "Sarchen: Top Rated" + mTopTopRatedList.size());
                 }else{
                     Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
                 }
@@ -157,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void  s) {
             super.onPostExecute(s);
-            mProgressBar.setVisibility(View.INVISIBLE);
             test.setText(mPopularList.get(0).getTitle());
 
             Log.e(TAG, "Sarchen: Post Execute");
