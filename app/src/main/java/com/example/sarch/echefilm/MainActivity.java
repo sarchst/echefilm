@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,15 +33,20 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Movie> animatedMovies;
     ArrayList<Movie> dramaMovies;
 
-    GridView mGridView;
+
     public final String myApiKey = "94a9226df34dd3b1351e1b8345b96af2";
-    private static final String TAG = NetworkUtils.class.getSimpleName();
-    TextView test;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
 
     public final String action = "28";
     public final String animated = "16";
     public final String comedy = "35";
     public final String drama = "18";
+    ListView listView;
+
+    ArrayList<Movie> testMovieList;
+    Movie m1;
+    Movie m2;
 
 
 
@@ -49,13 +54,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        test = findViewById(R.id.test_text);
+        m1 = new Movie();
+        m2 = new Movie();
+        m1.setTitle("Dreams");
+        m2.setTitle("Friends");
+        m1.setReleaseDate("2020");
+        m1.setReleaseDate("2025");
+        testMovieList = new ArrayList<>();
+        testMovieList.add(m1);
+        testMovieList.add(m2);
 
         setContentView(R.layout.activity_main);
-        test = findViewById(R.id.test_text);
+        listView = findViewById(R.id.list_view);
+        MovieAdapter adapter = new MovieAdapter(MainActivity.this, testMovieList);
+        listView.setAdapter(adapter);
 
-        ButterKnife.bind(this);
+
+
+
+
+
         new FetchMovies().execute(); //New code
         Log.e(TAG, "Sarchen: End of OnCreate");
     }
@@ -77,9 +95,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshList(ArrayList<Movie> list) {
-        MovieAdapter adapter = new MovieAdapter(MainActivity.this, list);
-        mGridView.invalidateViews();
-        mGridView.setAdapter(adapter);
+
+
     }
 
     //AsyncTask
@@ -92,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-
             popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key="+myApiKey;
 
             mPopularList = new ArrayList<>();
@@ -136,16 +151,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void  s) {
             super.onPostExecute(s);
-            test.setText(mPopularList.get(0).getTitle());
-
-            Log.e(TAG, "Sarchen: Post Execute");
 
         }
     }

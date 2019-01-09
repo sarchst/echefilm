@@ -71,14 +71,12 @@ public class NetworkUtils {
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setReleaseDate(jsonObject.getString("release_date"));
                 movie.setPosterPath(jsonObject.getString("poster_path"));
-                //Log.e(TAG, "Sarchen: Adding " + movie.getTitle());
-                //Adding a new movie object into ArrayList
                 list.add(movie);
 
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e(TAG, "Erro occurred during JSON Parsing");
+            Log.e(TAG, "Error occurred during JSON Parsing");
         }
 
     }
