@@ -1,2 +1,2 @@
 # echefilm
-A Good and Bad Movie Recommending App
+Popular Movie Recommending App
