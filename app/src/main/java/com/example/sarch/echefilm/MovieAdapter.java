@@ -19,12 +19,10 @@ import java.util.ArrayList;
 public class MovieAdapter extends BaseAdapter {
     private Context mContext;
     ArrayList<Movie> list;
-    public static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
+    private static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
     private static final String TAG = MovieAdapter.class.getSimpleName();
 
     public MovieAdapter(Context context, ArrayList<Movie> movieList) {
-//        Log.v(TAG, "!Sarchen: in MovieAdapter constructor");
-//        Log.v(TAG, "!Sarchen: movie list: " + movieList.get(0).getTitle() + movieList.get(1).getTitle());
         this.mContext = context;
         this.list = movieList;
     }
@@ -50,40 +48,15 @@ public class MovieAdapter extends BaseAdapter {
         View row = inflater.inflate(R.layout.single_row, parent, false);
         TextView title = row.findViewById(R.id.title);
         TextView synopsis = row.findViewById(R.id.synopsis);
-
+        ImageView imageView = row.findViewById(R.id.image_view);
         Movie temp = getItem(position);
         title.setText(temp.getTitle());
-        //Log.v(TAG, "!Sarchen: Movie Title: " + temp.getTitle());
-        synopsis.setText(temp.getReleaseDate());
-        //Log.v(TAG, "!Sarchen: Release Data: " + temp.getReleaseDate());
+        synopsis.setText(temp.getOverview());
+        Picasso.get().load(MOVIE_BASE_URL + temp.getPosterPath())
+                .placeholder(R.drawable.image_placeholder)
+                .into(imageView);
 
         return row;
 
     }
 }
-
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        ImageView imageView;
-//        Movie movies = getItem(position);
-//        RelativeLayout relativeLayout = new RelativeLayout(mContext);
-//        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(200, 300));
-//        if (convertView == null) {
-//            // if it's not recycled, initialize some attributes
-//            imageView = new ImageView(mContext);
-//            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//            imageView.setAdjustViewBounds(true);
-//            relativeLayout.addView(imageView);
-//        } else {
-//            imageView = (ImageView) convertView;
-//        }
-//
-//        //load data into the ImageView using Picasso
-//        Picasso.get().load(MOVIE_BASE_URL + movies.getPosterPath())
-//                .placeholder(R.drawable.image_placeholder)
-//                .into(imageView);
-//
-//        return imageView;
-//    }
-

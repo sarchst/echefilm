@@ -3,14 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/pop_movies"
-        android:title="@string/pop_mov"
+        android:id="@+id/action_movies"
+        android:title="show action movies"
         android:orderInCategory="1"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/top_movies"
-        android:title="@string/top_mov"
+        android:id="@+id/animated_movies"
+        android:title="show animated movies"
+        android:orderInCategory="1"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/comedy_movies"
+        android:title="show comedy movies"
+        android:orderInCategory="1"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/drama_movies"
+        android:title="show drama movies"
         android:orderInCategory="1"
         app:showAsAction="never" />
 
