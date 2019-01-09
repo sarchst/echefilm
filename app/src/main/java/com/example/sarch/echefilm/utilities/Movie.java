@@ -1,16 +1,37 @@
 package com.example.sarch.echefilm.utilities;
 
+
+
+
+import org.json.JSONArray;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Movie implements Serializable {
 
     private int id;
     private  int voteAverage;
     private int voteCount;
+    private JSONArray genres;
     private String originalTitle;
+    private String title;
+    private double popularity;
+    private String backdropPath;
+    private String overview;
+    private String releaseDate;
+    private String posterPath;
 
     public int getId() {
         return id;
+    }
+
+    public void setGenre(JSONArray genres) {
+        this.genres = genres;
+    }
+
+    public JSONArray getGenre() {
+        return genres;
     }
 
     public void setId(int id) {
@@ -89,10 +110,5 @@ public class Movie implements Serializable {
         this.posterPath = posterPath;
     }
 
-    private String title;
-    private double popularity;
-    private String backdropPath;
-    private String overview;
-    private String releaseDate;
-    private String posterPath;
+
 }
