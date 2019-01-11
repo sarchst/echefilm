@@ -91,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
         alertTitle.setText(movie.getTitle());
 
         alertReleaseDate= (TextView)  myDialog.findViewById(R.id.alert_release_date);
-        alertReleaseDate.setText(movie.getReleaseDate());
+        alertReleaseDate.setText("Release date: " + movie.getReleaseDate());
 
         alertVoteAvg = (TextView)  myDialog.findViewById(R.id.alert_vote_avg);
-        alertVoteAvg.setText(Float.toString(movie.getVoteAverage()));
+        alertVoteAvg.setText("Rating: " + Float.toString(movie.getVoteAverage()));
 
         alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
         alertDescription.setText(movie.getOverview());
