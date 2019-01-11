@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Movie implements Serializable {
 
     private int id;
-    private  int voteAverage;
+    private  float voteAverage;
     private int voteCount;
     private JSONArray genres;
     private String originalTitle;
@@ -38,7 +38,7 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public int getVoteAverage() {
+    public float getVoteAverage() {
         return voteAverage;
     }
 

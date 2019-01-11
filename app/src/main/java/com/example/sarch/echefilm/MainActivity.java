@@ -1,17 +1,29 @@
 package com.example.sarch.echefilm;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.sarch.echefilm.utilities.Movie;
 import com.example.sarch.echefilm.utilities.NetworkUtils;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+// add a surprise me functionality
+// add custom dialog for clicking on movie
 
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
@@ -22,17 +34,26 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Movie> dramaMovies;
     public final String myApiKey = "94a9226df34dd3b1351e1b8345b96af2";
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
     public final String action = "28";
     public final String animated = "16";
     public final String comedy = "35";
     public final String drama = "18";
     ListView listView;
+    Dialog myDialog;
+    TextView alertTitle;
+    TextView alertDescription;
+    TextView alertReleaseDate;
+    TextView alertVoteAvg;
+    ImageView alertImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list_view);
+        myDialog = new Dialog(this);
         new FetchMovies().execute();
     }
 
@@ -61,6 +82,30 @@ public class MainActivity extends AppCompatActivity {
     private void refreshList(ArrayList<Movie> list) {
         MovieAdapter adapter = new MovieAdapter(MainActivity.this, list);
         listView.setAdapter(adapter);
+    }
+
+    public void ShowCustomDialog(Movie movie) {
+
+        myDialog.setContentView(R.layout.custom_alert);
+        alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
+        alertTitle.setText(movie.getTitle());
+
+        alertReleaseDate= (TextView)  myDialog.findViewById(R.id.alert_release_date);
+        alertReleaseDate.setText(movie.getReleaseDate());
+
+        alertVoteAvg = (TextView)  myDialog.findViewById(R.id.alert_vote_avg);
+        alertVoteAvg.setText(Float.toString(movie.getVoteAverage()));
+
+        alertDescription = (TextView) myDialog.findViewById(R.id.alert_description);
+        alertDescription.setText(movie.getOverview());
+
+        alertImage = (ImageView) myDialog.findViewById(R.id.alert_image);
+        Picasso.get().load(MOVIE_BASE_URL + movie.getPosterPath())
+                .placeholder(R.drawable.image_placeholder)
+                .into(alertImage);
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
     }
 
     //AsyncTask
@@ -122,6 +167,13 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             MovieAdapter adapter = new MovieAdapter(MainActivity.this, mPopularList);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    Movie item = (Movie) listView.getItemAtPosition(position);
+                    ShowCustomDialog(item);
+                }
+            });
 
         }
     }
