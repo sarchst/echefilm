@@ -1,5 +1,6 @@
 package com.example.sarch.echefilm;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,8 +24,8 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// add a surprise me functionality
-// add custom dialog for clicking on movie
+// TODO add a surprise me functionality
+// TODO favourites list functionality
 
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     TextView alertReleaseDate;
     TextView alertVoteAvg;
     ImageView alertImage;
-
+    Button randomButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
         myDialog = new Dialog(this);
         new FetchMovies().execute();
+        randomButton = findViewById(R.id.random_button);
+    }
+
+    // starts the other activity
+    public void OpenRandomGen() {
+        Intent intent= new Intent(this, RandomGenerator.class);
+        startActivity(intent);
     }
 
     @Override
@@ -85,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ShowCustomDialog(Movie movie) {
-
         myDialog.setContentView(R.layout.custom_alert);
         alertTitle = (TextView)  myDialog.findViewById(R.id.alert_title);
         alertTitle.setText(movie.getTitle());
