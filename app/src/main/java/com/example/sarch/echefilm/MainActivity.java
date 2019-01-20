@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.sarch.echefilm.utilities.Movie;
 import com.example.sarch.echefilm.utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Movie> comedyMovies;
     ArrayList<Movie> animatedMovies;
     ArrayList<Movie> dramaMovies;
-    public final String myApiKey = "94a9226df34dd3b1351e1b8345b96af2";
+    public String myApiKey;
+    public Api API;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
     public final String action = "28";
@@ -52,16 +54,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        API = new Api();
+        myApiKey = API.myApiKey;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list_view);
         myDialog = new Dialog(this);
         new FetchMovies().execute();
         randomButton = findViewById(R.id.random_button);
+        randomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRandomGen();
+            }
+        });
     }
 
     // starts the other activity
-    public void OpenRandomGen() {
+    public void openRandomGen() {
         Intent intent= new Intent(this, RandomGenerator.class);
         startActivity(intent);
     }
@@ -115,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
+
+
 
     //AsyncTask
     public class FetchMovies extends AsyncTask<Void,Void,Void>{
