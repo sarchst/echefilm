@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">echefilm</string>
+
+    <string name="troll_title">Troll 2</string>
+    <string name="room_title">The Room</string>
+    <string name="birdemic_title">Birdemic: Shock and Terror</string>
+    <string name="santa_title">Santa Claus Conquers the Martians</string>
+    <string name="plan_title">Plan 9 from Outer Space</string>
+
+    <string name="troll_synopsis">About goblins, not trolls.</string>
+    <string name="room_synopsis">"A movie made by an alien who has never seen a movie but who has had movies thoroughly explained to him" - Tom Bissell</string>
+    <string name="birdemic">Shocking...and terrifying.</string>
+    <string name="plan_synopsis">Evil aliens attack Earth and set their terrible "Plan 9" in action. As the aliens resurrect the dead of the Earth to destroy the living, our lives are in danger.</string>
+    <string name="santa_synopsis">Martian ruler Kimar (Leonard Hicks) is upset that the children of Mars are lazy and under the influence of too much pop culture from Earth.</string>
+
+    <string name="pop_mov">show popular movies</string>
+    <string name="top_mov">show top rated movies</string>
+
+
+
+
+</resources>
