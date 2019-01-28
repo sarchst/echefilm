@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         API = new Api();
         myApiKey = API.myApiKey;
         super.onCreate(savedInstanceState);
+        mPopularList = null;
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list_view);
         myDialog = new Dialog(this);
@@ -68,16 +70,22 @@ public class MainActivity extends AppCompatActivity {
         randomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //openRandomGen();
+                openRandomGen();
             }
         });
     }
 
     // starts the other activity
     public void openRandomGen() {
-        Intent intent= new Intent(this, RandomGenerator.class);
+        Intent intent= new Intent(MainActivity.this, RandomGenerator.class);
+       // Bundle bundle = new Bundle();
+//        intent.putExtra("key", mPopularList);
+//        bundle.putSerializable("movieList", mPopularList);
+//        intent.putExtras(bundle);
         startActivity(intent);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
