@@ -6,6 +6,8 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -16,6 +18,68 @@
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:id="@+id/random_movie_linear_layout"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/random_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:text="Title"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/random_movie_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="date"
+                android:textColor="@color/white"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/random_movie_vote_avg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="avg"
+                android:textColor="@color/white"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/random_movie_description"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:id="@+id/random_movie_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:src="@drawable/image_placeholder" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/choose_movie_button"

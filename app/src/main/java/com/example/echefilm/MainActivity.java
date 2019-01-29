@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        menu.add(menu.NONE, 0,menu.NONE,"TEST");
         getMenuInflater().inflate(R.menu.menu_options, menu);
         return true;
     }
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key="+myApiKey;
+            popularMoviesURL = "http://api.themoviedb.org/3/discover/theChosenMovie?sort_by=popularity.desc&api_key="+myApiKey;
             mPopularList = new ArrayList<>();
             actionMovies = new ArrayList<>();
             comedyMovies = new ArrayList<>();
