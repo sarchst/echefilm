@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_movies) {
             refreshList(actionMovies);
+            
         } else if (id == R.id.animated_movies) {
             refreshList(animatedMovies);
         } else if (id == R.id.comedy_movies) {
