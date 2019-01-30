@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.echefilm.utilities.Api;
+import com.example.echefilm.utilities.Genre;
 import com.example.echefilm.utilities.Movie;
 import com.example.echefilm.utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
@@ -34,11 +35,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
+    String genresURL;
     ArrayList<Movie> mPopularList;
     ArrayList<Movie> actionMovies;
     ArrayList<Movie> comedyMovies;
     ArrayList<Movie> animatedMovies;
     ArrayList<Movie> dramaMovies;
+    ArrayList<Genre> genresList;
     public String myApiKey;
     public Api API;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         menu.add(menu.NONE, 0,menu.NONE,"TEST");
         getMenuInflater().inflate(R.menu.menu_options, menu);
         return true;
@@ -150,18 +154,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key="+"94a9226df34dd3b1351e1b8345b96af2";
+            popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + myApiKey;
+            genresURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + myApiKey;
 
             mPopularList = new ArrayList<>();
             actionMovies = new ArrayList<>();
             comedyMovies = new ArrayList<>();
             animatedMovies = new ArrayList<>();
             dramaMovies = new ArrayList<>();
+            genresList = new ArrayList<>();
 
             try {
                 if(NetworkUtils.networkStatus(MainActivity.this)){
                     mPopularList = NetworkUtils.fetchData(popularMoviesURL); //Get popular movies
-                    Log.e(TAG, "Sarchen: Popular" + mPopularList.size());
+                    genresList = NetworkUtils.fetchGenreData(genresURL);
+                    Log.e(TAG, "Sarchen: Popular MOVIES" + mPopularList.size());
+                    Log.e(TAG, "Sarchen: Popular GENRE" + genresList.size());
                 }else{
                     Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
                 }
@@ -172,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
             // filter movies by genre
             for (int m=0; m < mPopularList.size(); m++) {
-                Log.e(TAG, "Sarchen: genre " + mPopularList.get(m).getGenre());
+                //Log.e(TAG, "Sarchen: genre " + mPopularList.get(m).getGenre());
                 for (int i = 0; i < mPopularList.get(m).getGenre().length(); i++) {
                     try {
                         if (mPopularList.get(m).getGenre().getString(i).equals(action)) {

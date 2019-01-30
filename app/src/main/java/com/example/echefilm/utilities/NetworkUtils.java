@@ -80,6 +80,50 @@ public class NetworkUtils {
         }
 
     }
+    // Genre
+
+    public static ArrayList<Genre> fetchGenreData(String url) throws IOException {
+        ArrayList<Genre> genres = new ArrayList<Genre>();
+        try {
+
+            URL new_url = new URL(url); //create a url from a String
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection(); //Opening a http connection  to the remote object
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream(); //reading from the object
+            String results = IOUtils.toString(inputStream);  //IOUtils to convert inputstream objects into Strings type
+            parseGenreJson(results,genres);
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.v(TAG,"Sarchen: checking genre list " + genres);
+
+        return genres;
+    }
+
+    public static void parseGenreJson(String data, ArrayList<Genre> genreList){
+        try {
+            JSONObject mainObject = new JSONObject(data);
+            Log.v(TAG,mainObject.toString());
+            JSONArray resArray = mainObject.getJSONArray("genres"); //Getting the results object
+            Log.v(TAG,"Sarchen: resArray " + resArray);
+            for (int i = 0; i < resArray.length(); i++) {
+                JSONObject jsonObject = resArray.getJSONObject(i);
+                Genre genre = new Genre(); //New Movie object
+                genre.setId(jsonObject.getInt("id"));
+                genre.setGenreName(jsonObject.getString("name"));
+                genreList.add(genre);
+                Log.v(TAG,"Sarchen: adding Genre " + genre.getId());
+                Log.v(TAG,"Sarchen: adding Genre " + genre.getGenreName());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Error occurred during JSON Parsing");
+        }
+
+    }
 
     public static Boolean networkStatus(Context context){
         ConnectivityManager manager = (ConnectivityManager)
