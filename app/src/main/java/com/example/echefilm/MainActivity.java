@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         API = new Api();
         myApiKey = API.myApiKey;
         super.onCreate(savedInstanceState);
-        mPopularList = null;
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.list_view);
         myDialog = new Dialog(this);
@@ -151,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            popularMoviesURL = "http://api.themoviedb.org/3/discover/theChosenMovie?sort_by=popularity.desc&api_key="+myApiKey;
+            popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key="+"94a9226df34dd3b1351e1b8345b96af2";
+
             mPopularList = new ArrayList<>();
             actionMovies = new ArrayList<>();
             comedyMovies = new ArrayList<>();
