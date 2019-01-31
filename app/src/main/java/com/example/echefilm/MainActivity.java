@@ -35,13 +35,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
-    String genresURL;
     ArrayList<Movie> mPopularList;
     ArrayList<Movie> actionMovies;
     ArrayList<Movie> comedyMovies;
     ArrayList<Movie> animatedMovies;
     ArrayList<Movie> dramaMovies;
-    ArrayList<Genre> genresList;
     public String myApiKey;
     public Api API;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -111,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_movies) {
             refreshList(actionMovies);
-            
         } else if (id == R.id.animated_movies) {
             refreshList(animatedMovies);
         } else if (id == R.id.comedy_movies) {
@@ -163,21 +160,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + myApiKey;
-            genresURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + myApiKey;
 
             mPopularList = new ArrayList<>();
             actionMovies = new ArrayList<>();
             comedyMovies = new ArrayList<>();
             animatedMovies = new ArrayList<>();
             dramaMovies = new ArrayList<>();
-            genresList = new ArrayList<>();
 
             try {
                 if(NetworkUtils.networkStatus(MainActivity.this)){
-                    mPopularList = NetworkUtils.fetchData(popularMoviesURL); //Get popular movies
-                    genresList = NetworkUtils.fetchGenreData(genresURL);
+                    mPopularList = NetworkUtils.fetchData(popularMoviesURL);
                     Log.e(TAG, "Sarchen: Popular MOVIES" + mPopularList.size());
-                    Log.e(TAG, "Sarchen: Popular GENRE" + genresList.size());
                 }else{
                     Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
                 }
