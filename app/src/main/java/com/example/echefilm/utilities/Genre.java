@@ -1,6 +1,12 @@
 package com.example.echefilm.utilities;
 
-public class Genre {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.Set;
+
+public class Genre implements Serializable {
     int id;
     String genreName;
 

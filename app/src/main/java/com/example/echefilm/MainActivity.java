@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView alertImage;
     Button randomButton;
 
+    ArrayList<Genre> splashGenres;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         API = new Api();
@@ -75,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 openRandomGen();
             }
         });
+
+        Intent i = getIntent();
+        splashGenres = (ArrayList<Genre>) i.getSerializableExtra("genre");
+        Log.i(TAG, "STARKE: splash genre size " + splashGenres.size());
     }
 
     // starts the other activity
@@ -92,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
+        for (Genre genre: splashGenres) {
+            menu.add(menu.NONE, genre.getId(),menu.NONE,genre.getGenreName());
+        }
         menu.add(menu.NONE, 0,menu.NONE,"TEST");
         getMenuInflater().inflate(R.menu.menu_options, menu);
         return true;

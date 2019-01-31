@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">echefilm</string>
+    <!--<string name="app_name">echefilm</string>-->
 
     <string name="troll_title">Troll 2</string>
     <string name="room_title">The Room</string>
@@ -15,6 +15,9 @@
 
     <string name="pop_mov">show popular movies</string>
     <string name="top_mov">show top rated movies</string>
+    <string name="app_name">Splash Screen Demo</string>
 
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="welcome">Welcome to\nAndroidDeft.Com</string>
 
 </resources>
