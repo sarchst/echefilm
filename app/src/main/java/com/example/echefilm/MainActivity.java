@@ -36,10 +36,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
     ArrayList<Movie> mPopularList;
-    ArrayList<Movie> actionMovies;
-    ArrayList<Movie> comedyMovies;
-    ArrayList<Movie> animatedMovies;
-    ArrayList<Movie> dramaMovies;
     public String myApiKey;
     public Api API;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -75,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 openRandomGen();
             }
         });
-
         Intent i = getIntent();
         splashGenres = (ArrayList<Genre>) i.getSerializableExtra("genre");
         Log.i(TAG, "STARKE: splash genre size " + splashGenres.size());
@@ -94,30 +89,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { // TODO case where no movies fit the genre
         // Inflate the menu; this adds items to the action bar if it is present.
         for (Genre genre: splashGenres) {
             menu.add(menu.NONE, genre.getId(),menu.NONE,genre.getGenreName());
         }
-        menu.add(menu.NONE, 0,menu.NONE,"TEST");
         getMenuInflater().inflate(R.menu.menu_options, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_movies) {
-            refreshList(actionMovies);
-        } else if (id == R.id.animated_movies) {
-            refreshList(animatedMovies);
-        } else if (id == R.id.comedy_movies) {
-            refreshList(comedyMovies);
-        } else if (id == R.id.drama_movies) {
-            refreshList(dramaMovies);
+        Log.i(TAG, "STARKE: on options selected");
+        String idS = Integer.toString(item.getItemId());
+        ArrayList<Movie> temp = new ArrayList<>();
+        for (Movie movie : mPopularList) {
+            if (movie.getGenre().toString().contains(idS)) {
+                temp.add(movie);
+            }
         }
+        refreshList(temp);
         return super.onOptionsItemSelected(item);
-    }
+        }
+
 
     private void refreshList(ArrayList<Movie> list) {
         MovieAdapter adapter = new MovieAdapter(MainActivity.this, list);
@@ -160,13 +154,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + myApiKey;
-
             mPopularList = new ArrayList<>();
-            actionMovies = new ArrayList<>();
-            comedyMovies = new ArrayList<>();
-            animatedMovies = new ArrayList<>();
-            dramaMovies = new ArrayList<>();
-
             try {
                 if(NetworkUtils.networkStatus(MainActivity.this)){
                     mPopularList = NetworkUtils.fetchData(popularMoviesURL);
@@ -176,30 +164,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             } catch (IOException e){
                 e.printStackTrace();
-            }
-
-
-            // filter movies by genre
-            for (int m=0; m < mPopularList.size(); m++) {
-                //Log.e(TAG, "Sarchen: genre " + mPopularList.get(m).getGenre());
-                for (int i = 0; i < mPopularList.get(m).getGenre().length(); i++) {
-                    try {
-                        if (mPopularList.get(m).getGenre().getString(i).equals(action)) {
-                            actionMovies.add(mPopularList.get(m));
-                        }
-                        if (mPopularList.get(m).getGenre().getString(i).equals(drama)) {
-                            dramaMovies.add(mPopularList.get(m));
-                        }
-                        if (mPopularList.get(m).getGenre().getString(i).equals(animated)) {
-                            animatedMovies.add(mPopularList.get(m));
-                        }
-                        if (mPopularList.get(m).getGenre().getString(i).equals(comedy)) {
-                            comedyMovies.add(mPopularList.get(m));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
             return null;
         }
