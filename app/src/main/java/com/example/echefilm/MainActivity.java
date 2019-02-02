@@ -30,6 +30,8 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.view.View.GONE;
+
 // TODO add a surprise me functionality
 // TODO favourites list functionality
 
@@ -40,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public Api API;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
-    public final String action = "28";
-    public final String animated = "16";
-    public final String comedy = "35";
-    public final String drama = "18";
     ListView listView;
     Dialog myDialog;
     TextView alertTitle;
@@ -52,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     TextView alertVoteAvg;
     ImageView alertImage;
     Button randomButton;
+    TextView noGenres;
 
     ArrayList<Genre> splashGenres;
 
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = getIntent();
         splashGenres = (ArrayList<Genre>) i.getSerializableExtra("genre");
         Log.i(TAG, "STARKE: splash genre size " + splashGenres.size());
+        noGenres = findViewById(R.id.no_genres);
     }
 
     // starts the other activity
@@ -108,7 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 temp.add(movie);
             }
         }
-        refreshList(temp);
+        if (temp.isEmpty()) {
+            noGenres.setVisibility(View.VISIBLE);
+            refreshList(temp);
+            Log.i(TAG,"STARKE: no movies in this list");
+        } else {
+            noGenres.setVisibility(GONE);
+            refreshList(temp);
+        }
         return super.onOptionsItemSelected(item);
         }
 
