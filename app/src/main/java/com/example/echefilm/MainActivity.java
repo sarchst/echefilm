@@ -23,12 +23,15 @@ import com.example.echefilm.utilities.Api;
 import com.example.echefilm.utilities.Genre;
 import com.example.echefilm.utilities.Movie;
 import com.example.echefilm.utilities.NetworkUtils;
+import com.example.echefilm.utilities.SimpleMovie;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.view.View.GONE;
 
@@ -38,6 +41,7 @@ import static android.view.View.GONE;
 public class MainActivity extends AppCompatActivity {
     String popularMoviesURL;
     ArrayList<Movie> mPopularList;
+    ArrayList<SimpleMovie> simpleMovieList;
     public String myApiKey;
     public Api API;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -78,12 +82,21 @@ public class MainActivity extends AppCompatActivity {
 
     // starts the other activity
     public void openRandomGen() {
+
+
+
+
+
+
+
         Intent intent= new Intent(MainActivity.this, RandomGenerator.class);
+        intent.putExtra("movies", (Serializable) simpleMovieList);
        // Bundle bundle = new Bundle();
 //        intent.putExtra("key", mPopularList);
 //        bundle.putSerializable("movieList", mPopularList);
 //        intent.putExtras(bundle);
         startActivity(intent);
+        finish();
     }
 
 
@@ -162,10 +175,13 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             popularMoviesURL = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + myApiKey;
             mPopularList = new ArrayList<>();
+            simpleMovieList = new ArrayList<>();
             try {
                 if(NetworkUtils.networkStatus(MainActivity.this)){
                     mPopularList = NetworkUtils.fetchData(popularMoviesURL);
+                    simpleMovieList = NetworkUtils.fetchSimpleData(popularMoviesURL);
                     Log.e(TAG, "Sarchen: Popular MOVIES" + mPopularList.size());
+                    Log.e(TAG, "Sarchen: Popular MOVIES simplified" + simpleMovieList.size());
                 }else{
                     Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
                 }

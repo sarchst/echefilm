@@ -1,5 +1,6 @@
 package com.example.echefilm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.echefilm.utilities.Genre;
 import com.example.echefilm.utilities.Movie;
+import com.example.echefilm.utilities.SimpleMovie;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import pl.droidsonroids.gif.GifImageView;
+
+import static android.view.View.GONE;
 
 public class RandomGenerator extends AppCompatActivity {
     Button chooseButton;
@@ -31,7 +39,8 @@ public class RandomGenerator extends AppCompatActivity {
     TextView randomVoteAvg;
     TextView randomMovieDesc;
     ImageView randomMovieImage;
-
+    ArrayList<SimpleMovie> simpleMovies;
+    private static final String MOVIE_BASE_URL="https://image.tmdb.org/t/p/w185";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +66,11 @@ public class RandomGenerator extends AppCompatActivity {
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseButton.setVisibility(View.GONE);
+                chooseButton.setVisibility(GONE);
                 waitingGif.setVisibility(View.VISIBLE);
                 waitingText.setVisibility(View.VISIBLE);
-                clapperboardImageView.setVisibility(View.GONE);
+                clapperboardImageView.setVisibility(GONE);
+                randomMovieLayout.setVisibility(View.GONE);
                 chooseMovie();
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -72,8 +82,9 @@ public class RandomGenerator extends AppCompatActivity {
                 }, 3000);
             }
         });
-
-
+        Intent i = getIntent();
+        simpleMovies = (ArrayList<SimpleMovie>) i.getSerializableExtra("movies");
+        Log.v(TAG,"Sarchen: size of simplelist " + simpleMovies.size());
     }
 
     @Override
@@ -84,14 +95,22 @@ public class RandomGenerator extends AppCompatActivity {
     }
 
     public void displayMovie() {
-        waitingGif.setVisibility(View.GONE);
-        waitingText.setVisibility(View.GONE);
+        waitingGif.setVisibility(GONE);
+        waitingText.setVisibility(GONE);
         chooseButton.setText("Redo");
         chooseButton.setVisibility(View.VISIBLE);
         randomMovieLayout.setVisibility(View.VISIBLE);
 
         randomMovieTitle.setText(randomMovie.getTitle());
         randomMovieDesc.setText(randomMovie.getOverview());
+        randomMovie.setReleaseDate(randomMovie.getReleaseDate());
+
+
+
+
+        Picasso.get().load(MOVIE_BASE_URL + randomMovie.getPosterPath())
+                .placeholder(R.drawable.image_placeholder)
+                .into(randomMovieImage);
 
     }
 
@@ -100,14 +119,12 @@ public class RandomGenerator extends AppCompatActivity {
 
 
     public void chooseMovie() {
+        SimpleMovie random = simpleMovies.get(new Random().nextInt(simpleMovies.size()));
         randomMovie = new Movie();
-        randomMovie.setTitle("An Amazing Movie");
-        randomMovie.setOverview("This theChosenMovie is amazing."); // todo display this theChosenMovie dummy
-        randomMovie.setPosterPath(null);
-
-
-
-//        Random randomizer = new Random();
-//        Movie random = movieList.get(new Random().nextInt(movieList.size()));
+        randomMovie.setTitle(random.getTitle());
+        randomMovie.setOverview(random.getOverview()); // todo display this theChosenMovie dummy
+        randomMovie.setPosterPath(random.getOverview());
+        randomMovie.setReleaseDate(random.getReleaseDate());
+        randomMovie.setVoteAverage(random.getVoteAverage());
     }
 }

@@ -3,6 +3,9 @@ package com.example.echefilm.utilities;
 
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 
 import java.io.Serializable;
@@ -41,7 +44,7 @@ public class Movie implements Serializable {
         return voteAverage;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -108,6 +111,7 @@ public class Movie implements Serializable {
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
+
 
 
 }

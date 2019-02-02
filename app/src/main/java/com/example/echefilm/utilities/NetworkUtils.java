@@ -125,6 +125,51 @@ public class NetworkUtils {
 
     }
 
+    public static ArrayList<SimpleMovie> fetchSimpleData(String url) throws IOException {
+        ArrayList<SimpleMovie> movies = new ArrayList<SimpleMovie>();
+        try {
+
+            URL new_url = new URL(url); //create a url from a String
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection(); //Opening a http connection  to the remote object
+            connection.connect();
+
+            InputStream inputStream = connection.getInputStream(); //reading from the object
+            String results = IOUtils.toString(inputStream);  //IOUtils to convert inputstream objects into Strings type
+            parseJsonSimple(results,movies);
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return movies;
+    }
+
+    public static void parseJsonSimple(String data, ArrayList<SimpleMovie> list){
+
+
+        try {
+            JSONObject mainObject = new JSONObject(data);
+            Log.v(TAG,mainObject.toString());
+            JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
+            for (int i = 0; i < resArray.length(); i++) {
+                JSONObject jsonObject = resArray.getJSONObject(i);
+                SimpleMovie movie = new SimpleMovie(); //New Movie object
+                movie.setVoteAverage(jsonObject.getInt("vote_average"));
+                movie.setTitle(jsonObject.getString("title"));
+                movie.setOverview(jsonObject.getString("overview"));
+                movie.setReleaseDate(jsonObject.getString("release_date"));
+                movie.setPosterPath(jsonObject.getString("poster_path"));
+                list.add(movie);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Error occurred during JSON Parsing");
+        }
+
+    }
+
     public static Boolean networkStatus(Context context){
         ConnectivityManager manager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
